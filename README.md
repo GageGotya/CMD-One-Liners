@@ -43,7 +43,7 @@ Welcome to my curated collection of powerful one-liners used across CTFs, pentes
 
 ## 📎 How to Use
 
-- Clone this repo for quick reference
+- Copy this repo for quick reference
 - Memorize or script your favorites
 - Expand it with your own daily-use gems!
 
